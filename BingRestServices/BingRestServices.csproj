@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D728EC52-B3AF-4249-BB2F-CF62383E0A38}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BingRestServices</RootNamespace>
+    <AssemblyName>BingRestServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BingRoutes.cs" />
+    <Compile Include="Configuration\BingConfiguration.cs" />
+    <Compile Include="Configuration\BingConfigurationSection.cs" />
+    <Compile Include="DataContracts\Address.cs" />
+    <Compile Include="DataContracts\BirdseyeMetadata.cs" />
+    <Compile Include="DataContracts\BoundingBox.cs" />
+    <Compile Include="DataContracts\CompressedPointList.cs" />
+    <Compile Include="DataContracts\Detail.cs" />
+    <Compile Include="DataContracts\ElevationData.cs" />
+    <Compile Include="DataContracts\Generalization.cs" />
+    <Compile Include="DataContracts\Hint.cs" />
+    <Compile Include="DataContracts\ImageryMetadata.cs" />
+    <Compile Include="DataContracts\Instruction.cs" />
+    <Compile Include="DataContracts\ItineraryItem.cs" />
+    <Compile Include="DataContracts\Line.cs" />
+    <Compile Include="DataContracts\Location.cs" />
+    <Compile Include="DataContracts\PinInfo.cs" />
+    <Compile Include="DataContracts\Pixel.cs" />
+    <Compile Include="DataContracts\Point.cs" />
+    <Compile Include="DataContracts\QueryParseValue.cs" />
+    <Compile Include="DataContracts\Resource.cs" />
+    <Compile Include="DataContracts\ResourceSet.cs" />
+    <Compile Include="DataContracts\Response.cs" />
+    <Compile Include="DataContracts\RoadShield.cs" />
+    <Compile Include="DataContracts\Route.cs" />
+    <Compile Include="DataContracts\RouteLeg.cs" />
+    <Compile Include="DataContracts\RoutePath.cs" />
+    <Compile Include="DataContracts\SeaLevelData.cs" />
+    <Compile Include="DataContracts\Shape.cs" />
+    <Compile Include="DataContracts\Shield.cs" />
+    <Compile Include="DataContracts\StaticMapMetadata.cs" />
+    <Compile Include="DataContracts\TrafficIncident.cs" />
+    <Compile Include="DataContracts\TransitLine.cs" />
+    <Compile Include="DataContracts\Warning.cs" />
+    <Compile Include="Exceptions\BingConfigurationException.cs" />
+    <Compile Include="Exceptions\BingRestResponseException.cs" />
+    <Compile Include="Extensions\KeyTypeArrayExtensions.cs" />
+    <Compile Include="GeoAddress.cs" />
+    <Compile Include="GeoPoint.cs" />
+    <Compile Include="IBingRoutes.cs" />
+    <Compile Include="IGeoLocation.cs" />
+    <Compile Include="KeyType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routes\CalculateRoutesParameters.cs" />
+    <Compile Include="Routes\DistanceUnite.cs" />
+    <Compile Include="Routes\MaxSolutions.cs" />
+    <Compile Include="Routes\RoadType.cs" />
+    <Compile Include="Routes\RouteAttribute.cs" />
+    <Compile Include="Routes\RouteOptimization.cs" />
+    <Compile Include="Routes\TransiteTimeType.cs" />
+    <Compile Include="Routes\TravelMode.cs" />
+    <Compile Include="Serialization\RestSharpDataContractJsonDeserializer.cs" />
+    <Compile Include="Services\BingService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
