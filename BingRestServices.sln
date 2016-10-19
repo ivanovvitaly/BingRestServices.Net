@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingRestServices", "BingRes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingRestServices.Tests", "BingRestServices.Tests\BingRestServices.Tests.csproj", "{58BB4201-5A8C-4594-9B71-C80CB14B69C6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{907E53C9-1E4E-404F-8782-84E497FB4FED}"
+	ProjectSection(SolutionItems) = preProject
+		BingRestServices.nuspec = BingRestServices.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

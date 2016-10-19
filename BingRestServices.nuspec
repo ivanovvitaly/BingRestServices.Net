@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>BingRestServices</id>
+        <version>1.0.0</version>
+        <title>Bing REST Services</title>
+        <authors>vitaly-ivanov</authors>
+        <owners>vitaly-ivanov</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Bing REST Services</description>
+        <summary>Bing REST Services provides API for Routes API.</summary>
+        <releaseNotes>
+         * 1.0.0 - Implemented Bing Routes API
+        </releaseNotes>
+        <copyright>Copyright 2016</copyright>
+        <tags>Bing, Routes, Geocoding, Bing REST Services</tags>
+        <dependencies>
+            <dependency id="RestSharp" version="105.2.3" />
+        </dependencies>
+    </metadata>
+</package>
