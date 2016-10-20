@@ -95,6 +95,22 @@ var bingRoutes = new BingRoutes();
 await bingRoutes.CalculateRoutesAsync(...)
 ```
 
+### Using service with DI (Ninject example)
+
+With configuration section in .config file
+
+```csharp
+kernel.Bind<IBingRoutes>().To<BingRoutes>().InRequestScope();
+```
+
+Without configuration section
+
+```csharp
+kernel.Bind<IBingRoutes>().To<BingRoutes>()
+    .WithConstructorArgument("configuration", _ => new BingConfiguration("API_KEY"))
+    .InRequestScope();
+```
+
 ## Development setup
 
 1. Open the solution in Visual Studio 2013 and start a build.
@@ -105,7 +121,7 @@ await bingRoutes.CalculateRoutesAsync(...)
 I use [NUnit](http://www.nunit.org/) and [Moq](https://github.com/moq/moq4) for Unit Tests.
 In order test Bing Services you should have Bing API Key.
 Put the API Key into _bingConfiguration_ section in the App.config file _BingRestServices.Tests_ project
-```
+```xml
 <bingConfiguration key="API_KEY"
      baseUrl="http://dev.virtualearth.net/REST/v1/"
      output="json"
