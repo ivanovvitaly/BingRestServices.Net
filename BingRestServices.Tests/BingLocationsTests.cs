@@ -24,7 +24,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = GeoAddress.CreateAddress(
                 "1 Microsoft Way",
                 "Redmond",
@@ -67,7 +67,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.Address.AddressLine = "1 Microsoft Way";
             parameters.Address.AdminDistrict = "WA";
@@ -107,7 +107,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.MaxResults = new MaxResults(10);
             parameters.Address = new GeoAddress();
             parameters.Address.Locality = "Greenville";
@@ -140,7 +140,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.IncludeNeighborhood = IncludeNeighborhood.Include;
             parameters.Address.Locality = "Ballard";
@@ -175,7 +175,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.Address.CountryRegion = "CA";
             parameters.Address.AdminDistrict = "BC";
@@ -217,7 +217,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.Address.CountryRegion = "FR";
             parameters.Address.PostalCode = "75007";
@@ -256,7 +256,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.Address.CountryRegion = "DE";
             parameters.Address.PostalCode = "12010";
@@ -295,7 +295,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.Address.CountryRegion = "GB";
             parameters.Address.PostalCode = "SW1A";
@@ -328,7 +328,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.Address.CountryRegion = "GB";
             parameters.Address.PostalCode = "SW1A 2AA";
@@ -361,7 +361,7 @@ namespace BingRestServices.Tests
                 .Callback<IRestRequest>(r => request = r)
                 .CallBase();
             var service = serviceMock.Object;
-            var parameters = new FindLocationParameters();
+            var parameters = new FindLocationByAddressParameters();
             parameters.Address = new GeoAddress();
             parameters.Address.AddressLine = "Kings Road";
             //parameters.UserLocation = GeoPoint.Create(51.504360719046616, -0.12600176611298197);
@@ -383,6 +383,67 @@ namespace BingRestServices.Tests
             Assert.That(request.Parameters.Find(x => x.Name == "addressLine").Value, Is.EqualTo(parameters.Address.AddressLine));
             //Assert.That(request.Parameters.Find(x => x.Name == "userLocation"), Is.Not.Null);
             //Assert.That(request.Parameters.Find(x => x.Name == "userLocation").Value, Is.EqualTo(parameters.UserLocation.ToString()));
+        }
+
+        [Test]
+        public async Task FindLocationAsync_ValidPoint_ValidLocation()
+        {
+            IRestRequest request = null;
+            var serviceMock = new Mock<BingLocations>();
+            serviceMock.Setup(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>(r => request = r)
+                .CallBase();
+            var service = serviceMock.Object;
+            var parameters = new FindLocationByPointParameters();
+            parameters.Point = GeoPoint.Create(47.64054, -122.12934);
+
+            var response = await service.FindLocationAsync(parameters);
+
+            serviceMock.Verify(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.ResourceSets.Length, Is.GreaterThan(0));
+            Assert.That(response.ResourceSets.First().Resources.OfType<Location>().Count(), Is.GreaterThan(0));
+            Assert.That(response.ResourceSets.First().Resources.OfType<Location>().First().Name, Is.EqualTo("Microsoft Way, Redmond, WA 98052"));
+            Assert.That(request, Is.Not.Null);
+            Assert.That(request.Method, Is.EqualTo(Method.GET));
+            Assert.That(request.Resource, Is.EqualTo("Locations/{Point}"));
+            Assert.That(request.Parameters.Find(x => x.Name == "version"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "key"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "o"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "c"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "Point"), Is.Not.Null);
+        }
+        
+        [Test]
+        public async Task FindLocationAsync_ValidPointIncludingCountryRegion_ValidLocation()
+        {
+            IRestRequest request = null;
+            var serviceMock = new Mock<BingLocations>();
+            serviceMock.Setup(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>(r => request = r)
+                .CallBase();
+            var service = serviceMock.Object;
+            var parameters = new FindLocationByPointParameters();
+            parameters.Point = GeoPoint.Create(47.64054, -122.12934);
+            parameters.IncludeEntityTypes = new [] { IncludeEntityType.CountryRegion };
+
+            var response = await service.FindLocationAsync(parameters);
+
+            serviceMock.Verify(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.ResourceSets.Length, Is.GreaterThan(0));
+            Assert.That(response.ResourceSets.First().Resources.OfType<Location>().Count(), Is.GreaterThan(0));
+            Assert.That(response.ResourceSets.First().Resources.OfType<Location>().First().Name, Is.EqualTo("United States"));
+            Assert.That(request, Is.Not.Null);
+            Assert.That(request.Method, Is.EqualTo(Method.GET));
+            Assert.That(request.Resource, Is.EqualTo("Locations/{Point}"));
+            Assert.That(request.Parameters.Find(x => x.Name == "version"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "key"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "o"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "c"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "Point"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "includeEntityTypes"), Is.Not.Null);
+            Assert.That(request.Parameters.Find(x => x.Name == "includeEntityTypes").Value, Is.EqualTo(IncludeEntityType.CountryRegion.Key));
         }
     }
 }

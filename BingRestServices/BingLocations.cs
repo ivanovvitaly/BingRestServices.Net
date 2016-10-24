@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using BingRestServices.Configuration;
 using BingRestServices.DataContracts;
@@ -11,6 +13,18 @@ namespace BingRestServices
 {
     public class BingLocations : BingService, IBingLocations
     {
+        private static readonly List<ILocationParametersBuilder> ParameterBuilders = new List<ILocationParametersBuilder>();
+        private static readonly Dictionary<Type, string> ResourceMap = new Dictionary<Type, string>();
+
+        static BingLocations()
+        {
+            ParameterBuilders.Add(new LocationByAddressParametersBuilder());
+            ParameterBuilders.Add(new LocationByPointParametersBuilder());
+
+            ResourceMap[typeof(FindLocationByAddressParameters)] = "Locations";
+            ResourceMap[typeof(FindLocationByPointParameters)] = "Locations/{Point}";
+        }
+
         public BingLocations()
         {
         }
@@ -22,10 +36,13 @@ namespace BingRestServices
 
         public Task<Response> FindLocationAsync(FindLocationParameters parameters)
         {
-            var request = new RestRequest("Locations", Method.GET);
-
-            AddAddressQueryParameters(parameters.Address, request);
+            var request = new RestRequest(ResourceMap[parameters.GetType()], Method.GET);
             AddOptionalQueryParameters(parameters, request);
+
+            foreach (var parametersBuilder in ParameterBuilders)
+            {
+                parametersBuilder.Build(parameters, request);
+            }
 
             var response = ExecuteAsync<Response>(request);
 
@@ -42,34 +59,6 @@ namespace BingRestServices
             if (parameters.IncludeNeighborhood != null)
             {
                 request.AddQueryParameter("inclnb", parameters.IncludeNeighborhood.Key);
-            }
-        }
-
-        private void AddAddressQueryParameters(GeoAddress address, IRestRequest request)
-        {
-            if (!string.IsNullOrEmpty(address.AdminDistrict))
-            {
-                request.AddQueryParameter("adminDistrict", address.AdminDistrict);
-            }
-            
-            if (!string.IsNullOrEmpty(address.Locality))
-            {
-                request.AddQueryParameter("locality", address.Locality);
-            }
-            
-            if (!string.IsNullOrEmpty(address.PostalCode))
-            {
-                request.AddQueryParameter("postalCode", address.PostalCode);
-            }
-            
-            if (!string.IsNullOrEmpty(address.AddressLine))
-            {
-                request.AddQueryParameter("addressLine", address.AddressLine);
-            }
-
-            if (!string.IsNullOrEmpty(address.CountryRegion))
-            {
-                request.AddQueryParameter("countryRegion", address.CountryRegion);
             }
         }
     }
