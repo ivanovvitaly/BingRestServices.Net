@@ -25,10 +25,24 @@ namespace BingRestServices
             var request = new RestRequest("Locations", Method.GET);
 
             AddAddressQueryParameters(parameters.Address, request);
+            AddOptionalQueryParameters(parameters, request);
 
             var response = ExecuteAsync<Response>(request);
 
             return response;
+        }
+
+        private void AddOptionalQueryParameters(FindLocationParameters parameters, IRestRequest request)
+        {
+            if (parameters.MaxResults != null)
+            {
+                request.AddQueryParameter("maxRes", parameters.MaxResults.Key);
+            }
+            
+            if (parameters.IncludeNeighborhood != null)
+            {
+                request.AddQueryParameter("inclnb", parameters.IncludeNeighborhood.Key);
+            }
         }
 
         private void AddAddressQueryParameters(GeoAddress address, IRestRequest request)

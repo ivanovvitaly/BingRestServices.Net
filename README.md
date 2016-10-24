@@ -145,8 +145,9 @@ Run unit tests from Visual Studio or using [nunitlite-runner](https://github.com
 
 - [x] Implement Routes API
 - [ ] Implement Locations API
+- [ ] Implement User Context Parameters
 - [ ] Implement Traffic API
-- [ ] Elevations API
+- [ ] Implement Elevations API
 - [ ] Implement Imagery API
 
 ## About Me
