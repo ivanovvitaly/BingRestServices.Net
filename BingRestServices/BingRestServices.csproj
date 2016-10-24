@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BingLocations.cs" />
     <Compile Include="BingRoutes.cs" />
     <Compile Include="Configuration\BingConfiguration.cs" />
     <Compile Include="Configuration\BingConfigurationSection.cs" />
@@ -84,9 +85,14 @@
     <Compile Include="Extensions\KeyTypeArrayExtensions.cs" />
     <Compile Include="GeoAddress.cs" />
     <Compile Include="GeoPoint.cs" />
+    <Compile Include="IBingLocations.cs" />
     <Compile Include="IBingRoutes.cs" />
     <Compile Include="IGeoLocation.cs" />
     <Compile Include="KeyType.cs" />
+    <Compile Include="Locations\FindLocationParameters.cs" />
+    <Compile Include="Locations\IncludeCountryISOCode.cs" />
+    <Compile Include="Locations\IncludeNeighborhood.cs" />
+    <Compile Include="Locations\MaxResults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes\CalculateRoutesParameters.cs" />
     <Compile Include="Routes\DistanceUnite.cs" />
@@ -102,6 +108,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

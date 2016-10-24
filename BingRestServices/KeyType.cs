@@ -9,7 +9,7 @@
             Key = key;
         }
 
-        public string Key { get; private set; }
+        public string Key { get; protected set; }
 
         public static T Create<T>(string key) where T : KeyType, new()
         {

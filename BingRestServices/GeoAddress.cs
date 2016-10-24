@@ -44,5 +44,17 @@ namespace BingRestServices
                 PostalCode = postalCode
             };
         }
+        
+        public static GeoAddress CreateAddress(string addressLine, string city, string state, string postalCode, string isoCountryCode)
+        {
+            return new GeoAddress
+            {
+                AddressLine = addressLine,
+                Locality = city,
+                AdminDistrict = state,
+                PostalCode = postalCode,
+                CountryRegion = isoCountryCode
+            };
+        }
     }
 }
