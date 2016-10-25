@@ -9,8 +9,76 @@ Install-Package BingRestServices
 ```
 
 ## Examples 
-
 >Your should have valid Bing API Key to use Bing REST Services
+
+### Find location by Address (US)
+
+```csharp
+var parameters = new FindLocationByAddressParameters();
+parameters.Address = GeoAddress.CreateAddress(
+                "1 Microsoft Way",
+                "Redmond",
+                "WA",
+                "98052",
+                "US");
+
+var bingLocations = new BingLocations(new BingConfiguration("API_KEY"));
+var response = await bingLocations.FindLocationAsync(parameters);
+var location = response.ResourceSets.First().Resources.OfType<Location>().First();
+
+```
+
+### Find location by Address (France)
+
+```csharp
+var parameters = new FindLocationByAddressParameters();
+parameters.Address = new GeoAddress();
+parameters.Address.CountryRegion = "FR";
+parameters.Address.PostalCode = "75007";
+parameters.Address.Locality = "Paris";
+parameters.Address.AddressLine = "Avenue Gustave Eiffel";
+
+var bingLocations = new BingLocations(new BingConfiguration("API_KEY"));
+var response = await bingLocations.FindLocationAsync(parameters);
+var location = response.ResourceSets.First().Resources.OfType<Location>().First();
+```
+
+### Find location by Point
+
+```csharp
+var parameters = new FindLocationByPointParameters();
+parameters.Point = GeoPoint.Create(47.64054, -122.12934);
+
+var bingLocations = new BingLocations(new BingConfiguration("API_KEY"));
+var response = await bingLocations.FindLocationAsync(parameters);
+var location = response.ResourceSets.First().Resources.OfType<Location>().First();
+// location.Name: "Microsoft Way, Redmond, WA 98052"
+```
+
+### Find location by Query
+
+```csharp
+var parameters = new FindLocationByQueryParameters();
+parameters.Query = GeoAddress.CreateLandmark("Eiffel Tower"); 
+
+var bingLocations = new BingLocations(new BingConfiguration("API_KEY"));
+var response = await bingLocations.FindLocationAsync(parameters);
+var eiffelTower = response.ResourceSets.First().Resources.OfType<Location>().First();
+```
+
+### Find location including neighborhoods by Query
+
+```csharp
+var parameters = new FindLocationByQueryParameters();
+parameters.IncludeNeighborhood = IncludeNeighborhood.Include;
+parameters.Query = GeoAddress.CreateLandmark("Brookyln New York"); // with misprint
+
+var bingLocations = new BingLocations(new BingConfiguration("API_KEY"));
+var response = await bingLocations.FindLocationAsync(parameters);
+var locations = response.ResourceSets.First().Resources.OfType<Location>();
+var brooklyn = locations.First(p => p.EntityType == "PopulatedPlace");
+var neighborhoods = locations.Where(p => p.EntityType == "Neighborhood");
+```
 
 ### Calculate travel distance from DC to NY
 
@@ -140,11 +208,13 @@ Run unit tests from Visual Studio or using [nunitlite-runner](https://github.com
 
 * 1.0.0
     * Introduced BingRoutes service for [Routes API](https://msdn.microsoft.com/en-us/library/ff701705.aspx)
+* 1.1.0
+    * Introduced BingLocations service for [Locations API](https://msdn.microsoft.com/en-us/library/ff701715.aspx)
 
 ## TODO
 
 - [x] Implement Routes API
-- [ ] Implement Locations API
+- [x] Implement Locations API
 - [ ] Implement User Context Parameters
 - [ ] Implement Traffic API
 - [ ] Implement Elevations API
