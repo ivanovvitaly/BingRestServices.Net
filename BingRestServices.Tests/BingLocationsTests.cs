@@ -620,11 +620,7 @@ namespace BingRestServices.Tests
         [Test]
         public async Task FindLocationAsync_NullPoint_ArgumentNullException()
         {
-            IRestRequest request = null;
             var serviceMock = new Mock<BingLocations>();
-            serviceMock.Setup(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()))
-                .Callback<IRestRequest>(r => request = r)
-                .CallBase();
             var service = serviceMock.Object;
             var parameters = new FindLocationByPointParameters();
             parameters.Point = null;
@@ -644,11 +640,7 @@ namespace BingRestServices.Tests
         [Test]
         public async Task FindLocationAsync_NullQuery_ArgumentNullException()
         {
-            IRestRequest request = null;
             var serviceMock = new Mock<BingLocations>();
-            serviceMock.Setup(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()))
-                .Callback<IRestRequest>(r => request = r)
-                .CallBase();
             var service = serviceMock.Object;
             var parameters = new FindLocationByQueryParameters();
             parameters.Query = null;
@@ -656,6 +648,24 @@ namespace BingRestServices.Tests
             try
             {
                 var response = await service.FindLocationAsync(parameters);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.Pass();
+            }
+           
+            Assert.Fail();
+        }
+        
+        [Test]
+        public async Task FindLocationAsync_NullFindLocationParameters_ArgumentNullException()
+        {
+            var serviceMock = new Mock<BingLocations>();
+            var service = serviceMock.Object;
+
+            try
+            {
+                var response = await service.FindLocationAsync(null);
             }
             catch (ArgumentNullException ex)
             {

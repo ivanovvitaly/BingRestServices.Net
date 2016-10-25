@@ -39,6 +39,13 @@ namespace BingRestServices
 
         public Task<Response> FindLocationAsync(FindLocationParameters parameters)
         {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException(
+                    "parameters",
+                    "Provide valid parameters for Find Location request.");
+            }
+
             if (!ResourceMap.ContainsKey(parameters.GetType()))
             {
                 throw new ArgumentException(string.Format("Resource URI was not found for the given type '{0}'", parameters.GetType()));
