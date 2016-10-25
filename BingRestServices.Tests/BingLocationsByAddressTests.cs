@@ -171,7 +171,8 @@ namespace BingRestServices.Tests
             serviceMock.Verify(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.That(response, Is.Not.Null);
             Assert.That(response.ResourceSets.Length, Is.GreaterThan(0));
-            Assert.That(response.ResourceSets.First().Resources.OfType<Location>().Count(), Is.GreaterThan(0));
+            Assert.That(response.ResourceSets.First().Resources.OfType<Location>().Count(), Is.EqualTo(1));
+            Assert.That(response.ResourceSets.First().Resources.OfType<Location>().Count(p => p.EntityType == "Neighborhood"), Is.EqualTo(1));
             Assert.That(request, Is.Not.Null);
             Assert.That(request.Method, Is.EqualTo(Method.GET));
             Assert.That(request.Resource, Is.EqualTo("Locations"));
