@@ -6,12 +6,13 @@
         <title>Bing REST Services</title>
         <authors>vitaly-ivanov</authors>
         <owners>vitaly-ivanov</owners>
+	<projectUrl>https://github.com/ivanovvitaly/BingRestServices.Net</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Bing REST Services .NET library provides API for Bing Maps REST Services like Routes, Locations, Traffic, etc.</description>
         <summary>Bing REST Services .NET library provides API for Bing Maps REST Services like Routes, Locations, Traffic, etc. Examples can be found on GitHub https://github.com/ivanovvitaly/BingRestServices.Net</summary>
         <releaseNotes>
-         * 1.0.0 - Implemented Bing Routes API
-         * 1.1.0 - Implemented Bing Locations API
+	* 1.0.0 - Implemented Bing Routes API
+	* 1.1.0 - Implemented Bing Locations API
         </releaseNotes>
         <copyright>Copyright 2016</copyright>
         <tags>Bing Routes Geocoding REST API</tags>
