@@ -48,7 +48,7 @@
             return config;
         }
 
-        public static BingConfiguration CreateFromConfiguratioSection(BingConfigurationSection section)
+        public static BingConfiguration CreateFromConfigurationSection(BingConfigurationSection section)
         {
             var config = new BingConfiguration(section.Key);
             config.BaseUrl = section.BaseUrl;

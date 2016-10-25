@@ -32,7 +32,7 @@ namespace BingRestServices.Services
                         BingConfigurationSection.BingConfigurationSectionName));
             }
 
-            configuration = BingConfiguration.CreateFromConfiguratioSection(configurationSection);
+            configuration = BingConfiguration.CreateFromConfigurationSection(configurationSection);
         }
 
         protected BingService(BingConfiguration configuration)
