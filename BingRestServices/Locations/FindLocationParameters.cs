@@ -4,7 +4,7 @@
     {
         public IncludeNeighborhood IncludeNeighborhood { get; set; }
 
-        public IncludeCountryISOCode IncludeCountryIsoCode { get; set; }
+        public LocationAdditionalInfomation[] IncludeAdditionalInformation { get; set; }
 
         public MaxResults MaxResults { get; set; }
     }

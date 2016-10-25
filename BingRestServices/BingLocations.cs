@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using BingRestServices.Configuration;
 using BingRestServices.DataContracts;
+using BingRestServices.Extensions;
 using BingRestServices.Locations;
 using BingRestServices.Services;
 
@@ -20,9 +21,11 @@ namespace BingRestServices
         {
             ParameterBuilders.Add(new LocationByAddressParametersBuilder());
             ParameterBuilders.Add(new LocationByPointParametersBuilder());
+            ParameterBuilders.Add(new LocationByQueryParametersBuilder());
 
             ResourceMap[typeof(FindLocationByAddressParameters)] = "Locations";
             ResourceMap[typeof(FindLocationByPointParameters)] = "Locations/{Point}";
+            ResourceMap[typeof(FindLocationByQueryParameters)] = "Locations";
         }
 
         public BingLocations()
@@ -36,6 +39,11 @@ namespace BingRestServices
 
         public Task<Response> FindLocationAsync(FindLocationParameters parameters)
         {
+            if (!ResourceMap.ContainsKey(parameters.GetType()))
+            {
+                throw new ArgumentException(string.Format("Resource URI was not found for the given type '{0}'", parameters.GetType()));
+            }
+
             var request = new RestRequest(ResourceMap[parameters.GetType()], Method.GET);
             AddOptionalQueryParameters(parameters, request);
 
@@ -59,6 +67,11 @@ namespace BingRestServices
             if (parameters.IncludeNeighborhood != null)
             {
                 request.AddQueryParameter("inclnb", parameters.IncludeNeighborhood.Key);
+            }
+
+            if (parameters.IncludeAdditionalInformation != null)
+            {
+                request.AddQueryParameter("incl", parameters.IncludeAdditionalInformation.ToCSVString());
             }
         }
     }

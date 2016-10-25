@@ -91,13 +91,15 @@
     <Compile Include="KeyType.cs" />
     <Compile Include="Locations\FindLocationByAddressParameters.cs" />
     <Compile Include="Locations\FindLocationByPointParameters.cs" />
+    <Compile Include="Locations\FindLocationByQueryParameters.cs" />
     <Compile Include="Locations\FindLocationParameters.cs" />
     <Compile Include="Locations\ILocationParametersBuilder.cs" />
-    <Compile Include="Locations\IncludeCountryISOCode.cs" />
+    <Compile Include="Locations\LocationAdditionalInfomation.cs" />
     <Compile Include="Locations\IncludeEntityType.cs" />
     <Compile Include="Locations\IncludeNeighborhood.cs" />
     <Compile Include="Locations\LocationByAddressParametersBuilder.cs" />
     <Compile Include="Locations\LocationByPointParametersBuilder.cs" />
+    <Compile Include="Locations\LocationByQueryParametersBuilder.cs" />
     <Compile Include="Locations\MaxResults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routes\CalculateRoutesParameters.cs" />
