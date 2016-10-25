@@ -57,7 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BingLocationsTests.cs" />
+    <Compile Include="BingLocationsByAddressTests.cs" />
+    <Compile Include="BingLocationsByPointTests.cs" />
+    <Compile Include="BingLocationsByQueryTests.cs" />
     <Compile Include="BingRoutesTests.cs" />
     <Compile Include="BingServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
