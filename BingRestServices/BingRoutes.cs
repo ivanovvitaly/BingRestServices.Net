@@ -36,27 +36,8 @@ namespace BingRestServices
 
             var request = new RestRequest("Routes", Method.GET);
 
-            if (parameters.WayPoints != null)
-            {
-                for (int i = 0; i < parameters.WayPoints.Length; i++)
-                {
-                    if (parameters.WayPoints[i] != null)
-                    {
-                        request.AddQueryParameter(string.Format("wp.{0}", i), parameters.WayPoints[i].GetFormattedString());
-                    }
-                }
-            }
-
-            if (parameters.ViaWayPoints != null)
-            {
-                for (int i = 0; i < parameters.ViaWayPoints.Length; i++)
-                {
-                    if (parameters.ViaWayPoints[i] != null)
-                    {
-                        request.AddQueryParameter(string.Format("vwp.{0}", i), parameters.ViaWayPoints[i].GetFormattedString());
-                    }
-                }
-            }
+            AddPointsQueryParameters(parameters.WayPoints, "wp.{0}", request);
+            AddPointsQueryParameters(parameters.ViaWayPoints, "vwp.{0}", request);
 
             if (parameters.AvoidRoadTypes != null)
             {
@@ -116,6 +97,19 @@ namespace BingRestServices
             var response = ExecuteAsync<Response>(request);
 
             return response;
+        }
+
+        private void AddPointsQueryParameters(IGeoLocation[] points, string pointParameterFormat, IRestRequest request)
+        {
+            if (points == null) return;
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                if (points[i] != null)
+                {
+                    request.AddQueryParameter(string.Format(pointParameterFormat, i), points[i].GetFormattedString());
+                }
+            }
         }
     }
 }
