@@ -1,4 +1,6 @@
-﻿using BingRestServices.Extensions;
+﻿using System;
+
+using BingRestServices.Extensions;
 
 using RestSharp;
 
@@ -16,10 +18,12 @@ namespace BingRestServices.Locations
 
         public void Build(FindLocationByPointParameters parameters, IRestRequest request)
         {
-            if (parameters.Point != null)
+            if (parameters.Point == null)
             {
-                request.AddUrlSegment("Point", parameters.Point.ToString());
+                throw new ArgumentNullException("Point", "The coordinates of the location is required for Find Location By Point request.");
             }
+            
+            request.AddUrlSegment("Point", parameters.Point.ToString());
 
             if (parameters.IncludeEntityTypes != null)
             {

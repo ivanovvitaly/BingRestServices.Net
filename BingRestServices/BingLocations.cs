@@ -45,16 +45,20 @@ namespace BingRestServices
             }
 
             var request = new RestRequest(ResourceMap[parameters.GetType()], Method.GET);
+            AddQueryParameters(parameters, request);
+
+            var response = ExecuteAsync<Response>(request);
+            return response;
+        }
+
+        private void AddQueryParameters(FindLocationParameters parameters, IRestRequest request)
+        {
             AddOptionalQueryParameters(parameters, request);
 
             foreach (var parametersBuilder in ParameterBuilders)
             {
                 parametersBuilder.Build(parameters, request);
             }
-
-            var response = ExecuteAsync<Response>(request);
-
-            return response;
         }
 
         private void AddOptionalQueryParameters(FindLocationParameters parameters, IRestRequest request)

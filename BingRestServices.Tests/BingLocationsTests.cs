@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using BingRestServices.DataContracts;
@@ -614,6 +615,54 @@ namespace BingRestServices.Tests
             Assert.That(request.Parameters.Find(x => x.Name == "q").Value, Is.EqualTo(parameters.Query.GetFormattedString()));
             Assert.That(request.Parameters.Find(x => x.Name == "maxRes"), Is.Not.Null);
             Assert.That(request.Parameters.Find(x => x.Name == "maxRes").Value, Is.EqualTo(new MaxResults(10).Key));
+        }
+
+        [Test]
+        public async Task FindLocationAsync_NullPoint_ArgumentNullException()
+        {
+            IRestRequest request = null;
+            var serviceMock = new Mock<BingLocations>();
+            serviceMock.Setup(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>(r => request = r)
+                .CallBase();
+            var service = serviceMock.Object;
+            var parameters = new FindLocationByPointParameters();
+            parameters.Point = null;
+
+            try
+            {
+                var response = await service.FindLocationAsync(parameters);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.Pass();
+            }
+           
+            Assert.Fail();
+        }
+        
+        [Test]
+        public async Task FindLocationAsync_NullQuery_ArgumentNullException()
+        {
+            IRestRequest request = null;
+            var serviceMock = new Mock<BingLocations>();
+            serviceMock.Setup(zc => zc.ExecuteAsync<Response>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>(r => request = r)
+                .CallBase();
+            var service = serviceMock.Object;
+            var parameters = new FindLocationByQueryParameters();
+            parameters.Query = null;
+
+            try
+            {
+                var response = await service.FindLocationAsync(parameters);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.Pass();
+            }
+           
+            Assert.Fail();
         }
     }
 }

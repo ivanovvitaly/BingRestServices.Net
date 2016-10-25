@@ -13,7 +13,7 @@
 
         public static T Create<T>(string key) where T : KeyType, new()
         {
-            return  new T { Key = key };
+            return new T { Key = key };
         }
     }
 }
