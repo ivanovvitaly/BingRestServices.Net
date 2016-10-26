@@ -124,6 +124,29 @@ var routes = response.ResourceSets.First().Resources.OfType<Route>();
 ...
 ```
 
+### Get all traffic incidents in a specified area
+```csharp
+var mapArea = new MapArea(37, -105, 45, -94);
+var parameters = new TrafficIncidentsParameters(mapArea);
+
+var bingTraffic = new BingTraffic(new BingConfiguration("API_KEY"));
+var response = await bingTraffic.GetTrafficIncidents(parameters);
+var trafficIncidents = response.ResourceSets.First().Resources.OfType<TrafficIncident>();
+```
+
+### Get traffic incidents by type and severity and request traffic location codes
+```csharp
+var mapArea = new MapArea(37, -105, 45, -94);
+var parameters = new TrafficIncidentsParameters(mapArea);
+parameters.IncludeLocationCodes = true;
+parameters.Severity = new[] { Severity.Minor, Severity.Moderate };
+parameters.TrafficIncidentTypes = new[] { TrafficIncidentType.Construction };
+
+var bingTraffic = new BingTraffic(new BingConfiguration("API_KEY"));
+var response = await bingTraffic.GetTrafficIncidents(parameters);
+var trafficIncidents = response.ResourceSets.First().Resources.OfType<TrafficIncident>();
+```
+
 ### Advanced configuration using code
 
 ```csharp
@@ -210,13 +233,15 @@ Run unit tests from Visual Studio or using [nunitlite-runner](https://github.com
     * Introduced BingRoutes service for [Routes API](https://msdn.microsoft.com/en-us/library/ff701705.aspx)
 * 1.1.0
     * Introduced BingLocations service for [Locations API](https://msdn.microsoft.com/en-us/library/ff701715.aspx)
+* 1.2.0
+    * Introduced BingTraffic service for [Traffic API](https://msdn.microsoft.com/en-us/library/hh441725.aspx)
 
 ## TODO
 
 - [x] Implement Routes API
 - [x] Implement Locations API
 - [ ] Implement User Context Parameters
-- [ ] Implement Traffic API
+- [x] Implement Traffic API
 - [ ] Implement Elevations API
 - [ ] Implement Imagery API
 
