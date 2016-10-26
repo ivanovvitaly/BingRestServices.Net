@@ -47,6 +47,8 @@
   <ItemGroup>
     <Compile Include="BingLocations.cs" />
     <Compile Include="BingRoutes.cs" />
+    <Compile Include="BingTraffic.cs" />
+    <Compile Include="IBingTraffic.cs" />
     <Compile Include="Configuration\BingConfiguration.cs" />
     <Compile Include="Configuration\BingConfigurationSection.cs" />
     <Compile Include="DataContracts\Address.cs" />
@@ -112,6 +114,10 @@
     <Compile Include="Routes\TravelMode.cs" />
     <Compile Include="Serialization\RestSharpDataContractJsonDeserializer.cs" />
     <Compile Include="Services\BingService.cs" />
+    <Compile Include="Traffic\MapArea.cs" />
+    <Compile Include="Traffic\Severity.cs" />
+    <Compile Include="Traffic\TrafficIncidentsParameters.cs" />
+    <Compile Include="Traffic\TrafficIncidentType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

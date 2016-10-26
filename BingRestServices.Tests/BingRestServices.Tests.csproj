@@ -62,6 +62,7 @@
     <Compile Include="BingLocationsByQueryTests.cs" />
     <Compile Include="BingRoutesTests.cs" />
     <Compile Include="BingServiceTests.cs" />
+    <Compile Include="BingTrafficTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
