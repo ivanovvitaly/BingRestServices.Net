@@ -1,6 +1,9 @@
 ﻿# Bing REST Services .NET
 > Bing REST Services .NET library provides API for [Bing Maps REST Services](https://msdn.microsoft.com/en-us/library/ff701713.aspx) like [Routes](https://msdn.microsoft.com/en-us/library/ff701705.aspx), [Locations](https://msdn.microsoft.com/en-us/library/ff701715.aspx), [Traffic](https://msdn.microsoft.com/en-us/library/hh441725.aspx) and other Bing Maps REST services to perform tasks such as geocoding an address, creating a route, etc.
 
+[![Build Status](https://travis-ci.org/ivanovvitaly/BingRestServices.Net.svg?branch=master)](https://travis-ci.org/ivanovvitaly/BingRestServices.Net)
+[![NuGet](https://img.shields.io/nuget/v/BingRestServices.svg)](https://www.nuget.org/packages/BingRestServices)
+
 ## Installation
 
 To install via NuGet run the following command in the Package Manager Console
